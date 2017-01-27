@@ -18,7 +18,7 @@ addons:
 
 script:
   - yarn run build
-  - zip -9 ./electron-packager-dist/tweetdeck-electron-win32-x64.zip ./electron-packager-dist/tweetdeck-electron-win32-x64
+  - cd electron-packager-dist && zip -9 -r ./tweetdeck-electron-win32-x64.zip ./tweetdeck-electron-win32-x64
 
 deploy:
   provider: releases
