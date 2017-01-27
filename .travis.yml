@@ -1,24 +1,31 @@
 language: node_js
 
 node_js:
-  - "6"
+  - '6'
+
+cache:
+  - apt
+  - yarn
 
 sudo: false
 
 addons:
   apt:
     sources:
-      - sourceline: "ppa:wine/wine-builds"
+      - sourceline: ppa:wine/wine-builds
     packages:
       - winehq-staging
 
 script:
   - yarn run build
+  - zip -9 ./electron-packager-dist/tweetdeck-electron-win32-x64.zip ./electron-packager-dist/tweetdeck-electron-win32-x64
 
-#deploy:
-#  provider: releases
-#  api_key: "GITHUB OAUTH TOKEN"
-#  file: "FILE TO UPLOAD"
-#  skip_cleanup: true
-#  on:
-#    tags: true
+deploy:
+  provider: releases
+  api_key:
+    secure: APTxMTzrDBwkNkQg5F9PCacGv4+easApFJ424ae7bbSgIP/v5j+Ivp57UQvF0KiY0gBbKZbOmbVxEtMqLOMjvZwNU3MSBRuRyKJXZGukD2/6XYG4S/DULJ8rqWjVIFRTDBnE14Scfiwudu3aL+U9PjqqrWhLnAgtuEE8s9VVQvT71LGzofqnmiBuPitCHHxwXzDsR0J1pBkbsWx1q2B+qwSZKe28x3LdSXZWs51wEwupvgimjeQD3HUzhKu76DaQZ9TmRgSBvWjlrqaq8dkb9RU8qOpU8zXWaEqNH+J3qk/THzDzjmOedfCu1unDXH0tMib0B/vfhTn3C8fZ3e11eEBUtwj2O7iXqGpvOKC2BL6GYA86iO8Y8t+6xjYvRnmte5HMrT2HmTcxsQeRgfI1WdlBZCaj9ZYdjjX4MVvKZFi8oSMpasS/CASVcBNgE4Yv+benwDQlMHLtXVltkwC5rw2K+gbio0UYxEWxkdx169IGAlg81Wrp6qm09SpYXoUqmpwWvtNdPBhRwZvf9kPBZis9FVZ2pD++lKpttLM8LuRCLx0KG+juUN1w1UQ1DBQYerAbsf64usJHw9rGHvQv+DPS5E0u8ouoWooKmkQeXm2myxTeg1vy/XIKy8vyDBw+IkjYKJHsfuiyzhg19QXh/HswjPBshQlwStzpnhSaeO4=
+  file: electron-packager-dist/tweetdeck-electron-win32-x64.zip
+  skip_cleanup: true 
+  on:
+    repo: prince-0203/tweetdeck-electron
+    tags: true
