@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, shell } = require('electron');
 
 let mainWindow;
 
@@ -12,6 +12,11 @@ app.once('ready', () => {
   });
 
   mainWindow.loadURL('https://tweetdeck.twitter.com/');
+
+  mainWindow.webContents.on('new-window', (e, url) => {
+    shell.openExternal(url);
+    e.preventDefault();
+  });
 
   mainWindow.once('closed', () => {
     mainWindow = null;
